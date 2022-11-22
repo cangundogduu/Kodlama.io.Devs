@@ -1,8 +1,13 @@
 package kodlama.io.Kodlama.io.Devs.business.concretes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kodlama.io.Kodlama.io.Devs.business.abstracts.LanguageService;
+import kodlama.io.Kodlama.io.Devs.business.requests.languages.AddLanguageRequest;
+import kodlama.io.Kodlama.io.Devs.business.requests.languages.DeleteLanguageRequest;
+import kodlama.io.Kodlama.io.Devs.business.requests.languages.UpdateLanguageRequest;
+import kodlama.io.Kodlama.io.Devs.business.responses.LanguageResponse;
 import kodlama.io.Kodlama.io.Devs.dataAccess.abstracts.LanguageRepository;
 import kodlama.io.Kodlama.io.Devs.entities.concretes.Language;
 
@@ -19,39 +24,88 @@ public class LanguageManager implements LanguageService{
 		this.language = language;
 	}
 
+
+
 	@Override
-	public List<Language> getall() {
+	public List<LanguageResponse> getall() {
+		List<Language>languages= languageRepository.findAll();
+		List<LanguageResponse> languageResponses= new ArrayList<LanguageResponse>();
 		
-		return languageRepository.getall();
-	}
-
-	@Override
-	public List<Language> update() throws Exception {
-		if(language.getName().equals(language.getName()) && language.getName().length()==0){
-			throw new Exception
-			("Programming language name cannot be the same and can't be passed.");
+		for (Language language : languages) {
+			LanguageResponse languageResponse= new LanguageResponse();
+			languageResponse.setId(language.getId());
+			languageResponse.setName(language.getName());
+			languageResponses.add(languageResponse);
+			
 		}
-		return languageRepository.update();
+				
+		return languageResponses;
 	}
 
-	@Override
-	public List<Language> add() throws Exception {
-		if(language.getName().equals(language.getName()) && language.getName().length()==0){
-			throw new Exception
-			("Programming language name cannot be the same and can't be passed.");
-		}
-		return languageRepository.add();
-	}
+
 
 	@Override
-	public List<Language> delete() throws Exception {
-		if(language.getName().equals(language.getName()) && language.getName().length()==0){
-			throw new Exception
-			("Programming language name cannot be the same and can't be passed.");
+	public void update(UpdateLanguageRequest updateLanguageRequest) throws Exception {
+		
+		updateLanguageRequest.setId(language.getId());
+		updateLanguageRequest.setName(language.getName());
+		
+		if(language.getName()==null||updateLanguageRequest.getName().isEmpty()) {
+			
+			throw new Exception ("this area cannot be blank");
 		}
 		
-		return languageRepository.delete();
+		else {
+			languageRepository.save(language);
+			throw new Exception("language information is updated.");	
+		}
+		
+		
 	}
+
+
+
+	@Override
+	public void add(AddLanguageRequest addLanguageRequest) throws Exception {
+		
+		
+		addLanguageRequest.setId(language.getId());
+		addLanguageRequest.setName(language.getName());
+		
+		if(language.getName()==null||addLanguageRequest.getName().isEmpty()) {
+			
+			throw new Exception ("this area cannot be blank");
+		}
+		
+		else {
+			languageRepository.save(language);
+			throw new Exception("language information is added.");	
+		}
+		
+		
+		
+		
+	}
+
+
+
+	@Override
+	public void delete(DeleteLanguageRequest deleteLanguageRequest) throws Exception {
+		
+		deleteLanguageRequest.setId(language.getId());
+		deleteLanguageRequest.setName(language.getName());
+		if(language.getName()==null||deleteLanguageRequest.getName().isEmpty()) {
+			throw new Exception("this area cannot be blank");
+		}
+		else {
+			languageRepository.deleteAll();
+			throw new Exception("language information is delected.");
+		}
+		
+		
+	}
+
+	
 
 	
 	
