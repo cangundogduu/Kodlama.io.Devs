@@ -3,6 +3,8 @@ package kodlama.io.Kodlama.io.Devs.business.concretes;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import kodlama.io.Kodlama.io.Devs.business.abstracts.TechnologyService;
 import kodlama.io.Kodlama.io.Devs.business.requests.technologies.AddTechnologyRequest;
 import kodlama.io.Kodlama.io.Devs.business.requests.technologies.DeleteTechnologyRequest;
@@ -16,6 +18,7 @@ public class TechnologyManager implements TechnologyService{
 	private TechnologyRepository technologyRepository;
 	private LanguageTechnology languageTechnology;
 	
+	@Autowired
 	public TechnologyManager(TechnologyRepository technologyRepository, LanguageTechnology languageTechnology) {
 		super();
 		this.technologyRepository = technologyRepository;
@@ -72,7 +75,7 @@ public class TechnologyManager implements TechnologyService{
 
 	@Override
 	public void update(UpdateTechnologyRequest updateTechnologyRequest) throws Exception {
-		updateTechnologyRequest.setId(languageTechnology.getId());
+		
 		updateTechnologyRequest.setName(languageTechnology.getTechnologyName());
 		
 		if(languageTechnology.getTechnologyName()==null||updateTechnologyRequest.getName().isEmpty()) {

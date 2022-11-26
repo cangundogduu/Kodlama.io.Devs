@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AddLanguageRequest {
 	private String name;
-	private int id;
+	
 	
 
 }

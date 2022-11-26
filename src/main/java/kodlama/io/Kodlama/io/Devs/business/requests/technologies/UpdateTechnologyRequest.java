@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UpdateTechnologyRequest {
 
-	private int id;
+	
 	private String name;
 	
 }

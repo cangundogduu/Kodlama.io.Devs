@@ -24,7 +24,7 @@ public class LanguagesController {
 
 	@Autowired
 	public LanguagesController(LanguageService languageService) {
-		super();
+		
 		this.languageService = languageService;
 	}
 	

@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DeleteLanguageRequest {
 
-	private int id;
+	
 	private String name;
 }
